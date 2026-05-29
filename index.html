@@ -607,6 +607,220 @@
     outline: 2px solid var(--accent);
     outline-offset: 2px;
   }
+
+  /* ============================================================
+     RADAR CHARTS (slides 21 & 23)
+     ============================================================ */
+  .radar {
+    width: 100%;
+    max-width: clamp(280px, 32vw, 420px);
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    overflow: visible;
+  }
+  .radar .ring,
+  .radar .axis {
+    fill: none;
+    stroke: rgba(0,0,0,0.12);
+    stroke-width: 0.7;
+  }
+  .slide.dark .radar .ring, .slide.deep .radar .ring,
+  .slide.dark .radar .axis, .slide.deep .radar .axis {
+    stroke: rgba(255,255,255,0.14);
+  }
+  .radar .area-primary {
+    fill: rgba(0,113,227,0.20);
+    stroke: var(--accent);
+    stroke-width: 1.8;
+    stroke-linejoin: round;
+    transition: opacity 1.2s var(--ease-out), transform 1.2s var(--ease-out);
+    transform-origin: 230px 230px;
+  }
+  .radar .area-secondary {
+    fill: rgba(52,199,89,0.18);
+    stroke: #34c759;
+    stroke-width: 1.8;
+    stroke-linejoin: round;
+    transition: opacity 1.2s var(--ease-out) 0.3s, transform 1.2s var(--ease-out) 0.3s;
+    transform-origin: 230px 230px;
+  }
+  .slide:not(.active) .radar .area-primary,
+  .slide:not(.active) .radar .area-secondary {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  .radar .vertex {
+    fill: var(--accent);
+  }
+  .radar .vertex-secondary {
+    fill: #34c759;
+  }
+  .radar .label {
+    font-size: 12px;
+    font-weight: 600;
+    fill: var(--text-secondary-light);
+    letter-spacing: 0.02em;
+    font-family: var(--font-stack);
+  }
+  .slide.dark .radar .label, .slide.deep .radar .label {
+    fill: var(--text-secondary-dark);
+  }
+
+  /* ============================================================
+     SPLIT LAYOUT (slide 21 & 23: radar + content)
+     ============================================================ */
+  .split {
+    display: grid;
+    grid-template-columns: minmax(280px, 1fr) minmax(280px, 1fr);
+    gap: clamp(2rem, 4vw, 4rem);
+    align-items: center;
+    width: 100%;
+    max-width: 1180px;
+    margin-top: clamp(1.5rem, 2.5vw, 2.5rem);
+  }
+  @media (max-width: 860px) {
+    .split { grid-template-columns: 1fr; gap: 1.5rem; }
+  }
+
+  /* Compact pillars for split layout */
+  .pillars-stack {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(0.7rem, 1.2vw, 1rem);
+  }
+  .pillars-stack .pillar {
+    padding: clamp(1rem, 1.8vw, 1.35rem) clamp(1.2rem, 2vw, 1.6rem);
+    border: 1px solid var(--border-light);
+    border-radius: 14px;
+    background: rgba(255,255,255,0.5);
+    text-align: left;
+  }
+  .slide.dark .pillars-stack .pillar, .slide.deep .pillars-stack .pillar {
+    border-color: var(--border-dark);
+    background: rgba(255,255,255,0.03);
+  }
+  .pillars-stack .pillar .num {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 0.35rem;
+  }
+  .pillars-stack .pillar .h {
+    font-size: clamp(1rem, 1.35vw, 1.2rem);
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    line-height: 1.2;
+    margin-bottom: 0.35rem;
+  }
+  .pillars-stack .pillar .d {
+    font-size: clamp(0.82rem, 0.95vw, 0.92rem);
+    color: var(--text-secondary-light);
+    line-height: 1.5;
+  }
+  .slide.dark .pillars-stack .pillar .d, .slide.deep .pillars-stack .pillar .d {
+    color: var(--text-secondary-dark);
+  }
+
+  /* ============================================================
+     RADAR LEGEND (slide 23)
+     ============================================================ */
+  .radar-legend {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1rem, 1.6vw, 1.35rem);
+    text-align: left;
+  }
+  .radar-legend-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.9rem;
+  }
+  .radar-legend-item .dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 4px;
+    flex-shrink: 0;
+    margin-top: 0.32rem;
+  }
+  .radar-legend-item .dot.mission { background: var(--accent); }
+  .radar-legend-item .dot.team { background: #34c759; }
+  .radar-legend-item .txt strong {
+    display: block;
+    font-size: clamp(1rem, 1.3vw, 1.15rem);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.15rem;
+  }
+  .radar-legend-item .txt span {
+    font-size: clamp(0.88rem, 1.05vw, 1rem);
+    color: var(--text-secondary-light);
+    line-height: 1.45;
+  }
+  .slide.dark .radar-legend-item .txt span,
+  .slide.deep .radar-legend-item .txt span { color: var(--text-secondary-dark); }
+
+  .gap-callout {
+    margin-top: 0.5rem;
+    padding: clamp(0.9rem, 1.4vw, 1.1rem) clamp(1rem, 1.6vw, 1.3rem);
+    border-left: 3px solid var(--accent);
+    background: var(--accent-soft);
+    border-radius: 0 10px 10px 0;
+  }
+  .gap-callout .gap-label {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+  }
+  .gap-callout .gap-text {
+    font-size: clamp(0.92rem, 1.1vw, 1.02rem);
+    line-height: 1.5;
+    color: var(--text-primary-light);
+  }
+  .slide.dark .gap-callout .gap-text,
+  .slide.deep .gap-callout .gap-text { color: var(--text-primary-dark); }
+
+  /* ============================================================
+     PDI HIGHLIGHTS (slide 26)
+     ============================================================ */
+  .pdi-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(1rem, 2vw, 1.75rem);
+    width: 100%;
+    max-width: 880px;
+    margin-top: clamp(1.75rem, 3vw, 2.5rem);
+  }
+  @media (max-width: 700px) {
+    .pdi-grid { grid-template-columns: 1fr; }
+  }
+  .pdi-cell {
+    padding: clamp(1.1rem, 1.8vw, 1.5rem);
+    border: 1px solid var(--border-dark);
+    border-radius: 14px;
+    background: rgba(255,255,255,0.03);
+    text-align: left;
+  }
+  .pdi-cell .n {
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    color: var(--accent);
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    margin-bottom: 0.4rem;
+  }
+  .pdi-cell .lbl {
+    font-size: 0.82rem;
+    color: var(--text-secondary-dark);
+    line-height: 1.45;
+  }
 </style>
 </head>
 <body>
@@ -779,7 +993,6 @@
     </div>
   </section>
 
-  
   <!-- 13 · Portaria 619/2023 -->
   <section class="slide" data-duration="7500" data-theme="light">
     <span class="scene-count reveal" data-delay="1">13 / 33</span>
@@ -879,66 +1092,185 @@
     <p class="subtitle reveal" data-delay="2">A plataforma que substitui<br/><em style="color:var(--text-primary-light);font-style:normal;font-weight:500;">"quem indica?"</em> por <em style="color:var(--text-primary-light);font-style:normal;font-weight:500;">"quem sabe fazer?"</em></p>
   </section>
 
-  <!-- 21 · 4 Pilares Técnicos -->
-  <section class="slide" data-duration="11000" data-theme="light">
+  <!-- 21 · 4 Pilares Técnicos + Radar Ilustrativo -->
+  <section class="slide" data-duration="13500" data-theme="light">
     <span class="scene-count reveal" data-delay="1">21 / 33</span>
-    <h2 class="title reveal" data-delay="1">Quatro pilares técnicos.</h2>
-    <div class="pillars">
-      <div class="pillar reveal" data-delay="2">
-        <div class="num">01</div>
-        <div class="h">Vetorização semântica</div>
-        <div class="d">Modelos como o Sentence-BERT convertem currículos e vagas em <em>embeddings</em>, encontrando similaridade por significado — não por palavras-chave.</div>
+    <span class="eyebrow reveal">Régua RADAR · 9 dimensões</span>
+    <h2 class="title reveal" data-delay="1" style="font-size:clamp(2rem,4.5vw,3.8rem);">Quatro pilares técnicos.</h2>
+    <div class="split">
+      <!-- LADO ESQUERDO: RADAR SVG -->
+      <div class="reveal" data-delay="2">
+        <svg class="radar" viewBox="0 0 460 460" role="img" aria-label="Gráfico radar ilustrativo das 9 dimensões da Régua RADAR">
+          <!-- Anéis concêntricos -->
+          <polygon class="ring" points="230,200 249.3,207 259.5,224.8 256,245 240.3,258.2 219.7,258.2 204,245 200.5,224.8 210.7,207"/>
+          <polygon class="ring" points="230,170 268.6,184 289.1,219.6 282,260 250.5,286.4 209.5,286.4 178,260 170.9,219.6 191.4,184"/>
+          <polygon class="ring" points="230,140 287.9,161.1 318.6,214.4 307.9,275 260.8,314.6 199.2,314.6 152.1,275 141.4,214.4 172.1,161.1"/>
+          <polygon class="ring" points="230,110 307.1,138.1 348.2,209.2 333.9,290 271,342.8 189,342.8 126.1,290 111.8,209.2 152.9,138.1"/>
+          <polygon class="ring" points="230,80 326.4,115.1 377.7,204 359.9,305 281.3,371 178.7,371 100.1,305 82.3,204 133.6,115.1"/>
+          <!-- Eixos -->
+          <line class="axis" x1="230" y1="230" x2="230" y2="80"/>
+          <line class="axis" x1="230" y1="230" x2="326.4" y2="115.1"/>
+          <line class="axis" x1="230" y1="230" x2="377.7" y2="204"/>
+          <line class="axis" x1="230" y1="230" x2="359.9" y2="305"/>
+          <line class="axis" x1="230" y1="230" x2="281.3" y2="371"/>
+          <line class="axis" x1="230" y1="230" x2="178.7" y2="371"/>
+          <line class="axis" x1="230" y1="230" x2="100.1" y2="305"/>
+          <line class="axis" x1="230" y1="230" x2="82.3" y2="204"/>
+          <line class="axis" x1="230" y1="230" x2="133.6" y2="115.1"/>
+          <!-- Polígono de pontuação do candidato (ilustrativo) -->
+          <polygon class="area-primary" points="230,110 316.8,126.6 333.4,211.8 307.9,275 271,342.8 194.1,328.7 126.1,290 97.1,206.6 152.9,138.1"/>
+          <!-- Vértices -->
+          <circle class="vertex" cx="230" cy="110" r="3"/>
+          <circle class="vertex" cx="316.8" cy="126.6" r="3"/>
+          <circle class="vertex" cx="333.4" cy="211.8" r="3"/>
+          <circle class="vertex" cx="307.9" cy="275" r="3"/>
+          <circle class="vertex" cx="271" cy="342.8" r="3"/>
+          <circle class="vertex" cx="194.1" cy="328.7" r="3"/>
+          <circle class="vertex" cx="126.1" cy="290" r="3"/>
+          <circle class="vertex" cx="97.1" cy="206.6" r="3"/>
+          <circle class="vertex" cx="152.9" cy="138.1" r="3"/>
+          <!-- Labels das 9 dimensões -->
+          <text class="label" x="230" y="60" text-anchor="middle">Técnica</text>
+          <text class="label" x="348" y="92" text-anchor="start">Digital</text>
+          <text class="label" x="395" y="202" text-anchor="start">Problemas</text>
+          <text class="label" x="378" y="322" text-anchor="start">Cidadão</text>
+          <text class="label" x="290" y="398" text-anchor="start">Sistêmica</text>
+          <text class="label" x="170" y="398" text-anchor="end">Sociais</text>
+          <text class="label" x="82" y="322" text-anchor="end">Flexibilidade</text>
+          <text class="label" x="65" y="202" text-anchor="end">Valores</text>
+          <text class="label" x="112" y="92" text-anchor="end">Alinhamento</text>
+        </svg>
       </div>
-      <div class="pillar reveal" data-delay="3">
-        <div class="num">02</div>
-        <div class="h">Régua RADAR</div>
-        <div class="d">Nove dimensões avaliam o perfil: <em>Competência Técnica . Mentalidade Digital . Resolução de Problemas . Foco no Cidadão . Visão Sistêmica . Habilidades Sociais . Flexibilidade . Valores/Metas . Alinhamento</em>.</div>
-      </div>
-      <div class="pillar reveal" data-delay="4">
-        <div class="num">03</div>
-        <div class="h">Regra de Inferência Zero</div>
-        <div class="d">A IA só atribui uma competência se encontrar evidência <strong>literal e explícita</strong> no currículo. Sem alucinação, com segurança jurídica.</div>
-      </div>
-      <div class="pillar reveal" data-delay="5">
-        <div class="num">04</div>
-        <div class="h">Execução on-premise</div>
-        <div class="d">Modelos abertos (Gemma, LLaMA) rodam em infraestrutura local do MGI. <strong>Zero tráfego</strong> de dados sensíveis para fora.</div>
+
+      <!-- LADO DIREITO: PILARES EMPILHADOS -->
+      <div class="pillars-stack">
+        <div class="pillar reveal" data-delay="3">
+          <div class="num">01</div>
+          <div class="h">Vetorização semântica</div>
+          <div class="d">Modelos como o Sentence-BERT convertem currículos e vagas em <em>embeddings</em>, encontrando similaridade por significado — não por palavras-chave.</div>
+        </div>
+        <div class="pillar reveal" data-delay="4">
+          <div class="num">02</div>
+          <div class="h">Régua RADAR</div>
+          <div class="d">Nove dimensões avaliam o perfil — das hard skills à mentalidade digital, do foco no cidadão ao alinhamento institucional.</div>
+        </div>
+        <div class="pillar reveal" data-delay="5">
+          <div class="num">03</div>
+          <div class="h">Regra de Inferência Zero</div>
+          <div class="d">A IA só atribui uma competência se encontrar evidência <strong>literal</strong> no currículo. Sem alucinação, com segurança jurídica.</div>
+        </div>
+        <div class="pillar reveal" data-delay="6">
+          <div class="num">04</div>
+          <div class="h">Execução on-premise</div>
+          <div class="d">Modelos abertos (Gemma 2, LLaMA) rodam em infraestrutura local do MGI. <strong>Zero tráfego</strong> de dados sensíveis para fora.</div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- 22 · Resultados do Piloto -->
-  <section class="slide deep" data-duration="10000" data-theme="dark">
+  <!-- 22 · Escala do Ecossistema Recruta.gov -->
+  <section class="slide deep" data-duration="11000" data-theme="dark">
     <span class="scene-count reveal" data-delay="1">22 / 33</span>
     <div class="atmos glow-blue"></div>
-    <span class="eyebrow reveal">Resultados do projeto-piloto</span>
-    <h2 class="title reveal" data-delay="1">Seis meses depois.</h2>
-    <div class="num-grid" style="max-width:1000px;">
+    <span class="eyebrow reveal">A escala do ecossistema</span>
+    <h2 class="title reveal" data-delay="1">Inteligência em<br/>números reais.</h2>
+    <div class="num-grid" style="max-width:1100px;">
       <div class="num-cell reveal" data-delay="2">
-        <div class="n">−85%</div>
-        <div class="l">no tempo médio de triagem de candidatos</div>
+        <div class="n">250K+</div>
+        <div class="l">trajetórias de servidores vetorizadas e prontas para busca semântica</div>
       </div>
       <div class="num-cell reveal" data-delay="3">
-        <div class="n">+40%</div>
-        <div class="l">na satisfação dos gestores envolvidos</div>
+        <div class="n">227</div>
+        <div class="l">órgãos integrados ao ecossistema de dados (SouGov, SIAPE, SISDIP, Oportunidades)</div>
       </div>
       <div class="num-cell reveal" data-delay="4">
-        <div class="n">0</div>
-        <div class="l">incidentes de vazamento de dados</div>
+        <div class="n">100%</div>
+        <div class="l">soberania local — operação on-premise, em estrita conformidade com a LGPD</div>
       </div>
       <div class="num-cell reveal" data-delay="5">
-        <div class="n">1.200</div>
-        <div class="l">servidores e 30 gestores na piloto, com rastreabilidade total auditada pela CGU</div>
+        <div class="n">9</div>
+        <div class="l">dimensões auditadas em cada perfil, com regra de inferência zero (temperatura 0.0)</div>
       </div>
     </div>
+    <span class="tag reveal" data-delay="6">Powered by Gemma 2 · roneygbrum.github.io/Recruta</span>
   </section>
 
-  <!-- 23 · DFT + Matchmaking -->
-  <section class="slide" data-duration="8000" data-theme="light">
+  <!-- 23 · DFT + Matchmaking — Radar Comparativo -->
+  <section class="slide" data-duration="14000" data-theme="light">
     <span class="scene-count reveal" data-delay="1">23 / 33</span>
-    <span class="eyebrow reveal">Dimensionamento + Matchmaking</span>
-    <h2 class="title reveal" data-delay="1">A inteligência que<br/>cruza talento e vaga.</h2>
-    <p class="subtitle reveal" data-delay="2">O Dimensionamento da Força de Trabalho mapeia as vagas prioritárias. O Recruta.Gov identifica os perfis elegíveis. O algoritmo conecta os dois — em tempo real, com transparência e impessoalidade.</p>
+    <span class="eyebrow reveal">DFT · Diagnóstico de Força de Trabalho</span>
+    <h2 class="title reveal" data-delay="1" style="font-size:clamp(2rem,4.5vw,3.5rem);">Raio-X institucional:<br/>teoria <em style="font-style:normal;color:var(--accent);">vs.</em> realidade.</h2>
+    <p class="subtitle reveal" data-delay="2" style="margin-top:clamp(0.75rem,1.5vw,1.25rem);max-width:880px;">O <strong style="color:var(--text-primary-light);font-weight:600;">Dimensionamento</strong> mapeia o que cada unidade declara como missão (SISDIP). O <strong style="color:var(--text-primary-light);font-weight:600;">Matchmaking</strong> compara com a capacidade real instalada. O resultado: gaps coletivos diagnosticados em tempo real.</p>
+
+    <div class="split">
+      <!-- LADO ESQUERDO: RADAR COMPARATIVO -->
+      <div class="reveal" data-delay="3">
+        <svg class="radar" viewBox="0 0 460 460" role="img" aria-label="Gráfico radar comparativo entre missão institucional e capacidade da equipe">
+          <!-- Anéis concêntricos -->
+          <polygon class="ring" points="230,200 249.3,207 259.5,224.8 256,245 240.3,258.2 219.7,258.2 204,245 200.5,224.8 210.7,207"/>
+          <polygon class="ring" points="230,170 268.6,184 289.1,219.6 282,260 250.5,286.4 209.5,286.4 178,260 170.9,219.6 191.4,184"/>
+          <polygon class="ring" points="230,140 287.9,161.1 318.6,214.4 307.9,275 260.8,314.6 199.2,314.6 152.1,275 141.4,214.4 172.1,161.1"/>
+          <polygon class="ring" points="230,110 307.1,138.1 348.2,209.2 333.9,290 271,342.8 189,342.8 126.1,290 111.8,209.2 152.9,138.1"/>
+          <polygon class="ring" points="230,80 326.4,115.1 377.7,204 359.9,305 281.3,371 178.7,371 100.1,305 82.3,204 133.6,115.1"/>
+          <!-- Eixos -->
+          <line class="axis" x1="230" y1="230" x2="230" y2="80"/>
+          <line class="axis" x1="230" y1="230" x2="326.4" y2="115.1"/>
+          <line class="axis" x1="230" y1="230" x2="377.7" y2="204"/>
+          <line class="axis" x1="230" y1="230" x2="359.9" y2="305"/>
+          <line class="axis" x1="230" y1="230" x2="281.3" y2="371"/>
+          <line class="axis" x1="230" y1="230" x2="178.7" y2="371"/>
+          <line class="axis" x1="230" y1="230" x2="100.1" y2="305"/>
+          <line class="axis" x1="230" y1="230" x2="82.3" y2="204"/>
+          <line class="axis" x1="230" y1="230" x2="133.6" y2="115.1"/>
+          <!-- Equipe atual (verde) — desenhada primeiro para ficar atrás -->
+          <polygon class="area-secondary" points="230,155 268.6,184 303.9,217 320.9,282.5 255.7,300.5 194.1,328.7 152.1,275 126.6,211.8 172.1,161.1"/>
+          <!-- Missão SISDIP (azul) — por cima -->
+          <polygon class="area-primary" points="230,95 326.4,115.1 362.9,206.6 320.9,282.5 276.2,356.9 199.2,314.6 126.1,290 111.8,209.2 143.2,126.6"/>
+          <!-- Vértices Missão -->
+          <circle class="vertex" cx="230" cy="95" r="3"/>
+          <circle class="vertex" cx="326.4" cy="115.1" r="3"/>
+          <circle class="vertex" cx="362.9" cy="206.6" r="3"/>
+          <circle class="vertex" cx="320.9" cy="282.5" r="3"/>
+          <circle class="vertex" cx="276.2" cy="356.9" r="3"/>
+          <circle class="vertex" cx="199.2" cy="314.6" r="3"/>
+          <circle class="vertex" cx="126.1" cy="290" r="3"/>
+          <circle class="vertex" cx="111.8" cy="209.2" r="3"/>
+          <circle class="vertex" cx="143.2" cy="126.6" r="3"/>
+          <!-- Labels -->
+          <text class="label" x="230" y="60" text-anchor="middle">Técnica</text>
+          <text class="label" x="348" y="92" text-anchor="start">Digital</text>
+          <text class="label" x="395" y="202" text-anchor="start">Problemas</text>
+          <text class="label" x="378" y="322" text-anchor="start">Cidadão</text>
+          <text class="label" x="290" y="398" text-anchor="start">Sistêmica</text>
+          <text class="label" x="170" y="398" text-anchor="end">Sociais</text>
+          <text class="label" x="82" y="322" text-anchor="end">Flexibilidade</text>
+          <text class="label" x="65" y="202" text-anchor="end">Valores</text>
+          <text class="label" x="112" y="92" text-anchor="end">Alinhamento</text>
+        </svg>
+      </div>
+
+      <!-- LADO DIREITO: LEGENDA + DIAGNÓSTICO -->
+      <div class="radar-legend">
+        <div class="radar-legend-item reveal" data-delay="4">
+          <span class="dot mission"></span>
+          <div class="txt">
+            <strong>Missão SISDIP</strong>
+            <span>O que a unidade declarou como entrega institucional.</span>
+          </div>
+        </div>
+        <div class="radar-legend-item reveal" data-delay="5">
+          <span class="dot team"></span>
+          <div class="txt">
+            <strong>Equipe atual</strong>
+            <span>A capacidade real instalada nos servidores lotados hoje.</span>
+          </div>
+        </div>
+        <div class="gap-callout reveal" data-delay="6">
+          <span class="gap-label">Diagnóstico IA · Gap detectado</span>
+          <p class="gap-text">Lacuna crítica em <strong>Mentalidade Digital</strong> e <strong>Competência Técnica</strong>. Recomendação: trilha de capacitação ou requisição de talentos de TI.</p>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- ============================================================
@@ -964,12 +1296,29 @@
     <p class="caption reveal" data-delay="4">Que nenhuma servidora tenha de escolher entre sua carreira e sua vida.</p>
   </section>
 
-  <!-- 26 · Anistiados -->
-  <section class="slide deep" data-duration="9000" data-theme="dark">
+  <!-- 26 · Reparação Histórica + PDI -->
+  <section class="slide deep" data-duration="13000" data-theme="dark">
     <span class="scene-count reveal" data-delay="1">26 / 33</span>
-    <span class="eyebrow reveal">Lei nº 8.878/1994</span>
-    <h2 class="title reveal" data-delay="1">Reparação histórica.</h2>
-    <p class="subtitle reveal" data-delay="2">Servidores anistiados do período Collor têm assegurados o reconhecimento de tempo de serviço e, em <strong style="color:var(--text-primary-dark);font-weight:600;">2026</strong>, o reposicionamento remuneratório — restaurando o que décadas de exclusão tomaram.</p>
+    <span class="eyebrow reveal">Lei nº 8.878/1994 · PDI · Lei nº 15.367/2026</span>
+    <h2 class="title reveal" data-delay="1">Reparação histórica<br/>em duas camadas.</h2>
+    <p class="subtitle reveal" data-delay="2" style="max-width:860px;">Aos anistiados do período Collor, a Lei 8.878/1994 devolveu o vínculo e o tempo de serviço. Em <strong style="color:var(--text-primary-dark);font-weight:600;">2026</strong>, o reposicionamento remuneratório os recoloca na progressão devida. E o novo <strong style="color:var(--text-primary-dark);font-weight:600;">Programa de Desligamento Incentivado</strong> oferece uma saída digna e financeiramente justa para quem dedicou uma vida ao Estado.</p>
+
+    <div class="pdi-grid">
+      <div class="pdi-cell reveal" data-delay="3">
+        <div class="n">75+</div>
+        <div class="lbl"><strong style="color:var(--text-primary-dark);font-weight:600;">anos de idade</strong><br/>e em exercício — requisito de adesão ao PDI</div>
+      </div>
+      <div class="pdi-cell reveal" data-delay="4">
+        <div class="n">+40%</div>
+        <div class="lbl"><strong style="color:var(--text-primary-dark);font-weight:600;">acréscimo</strong><br/>sobre o valor calculado por ano trabalhado após o retorno</div>
+      </div>
+      <div class="pdi-cell reveal" data-delay="5">
+        <div class="n">R$ 350K</div>
+        <div class="lbl"><strong style="color:var(--text-primary-dark);font-weight:600;">teto do incentivo</strong><br/>pago em parcela única, em conta de titularidade do servidor</div>
+      </div>
+    </div>
+
+    <span class="tag reveal" data-delay="6" style="border-color:var(--accent-line);color:var(--text-primary-dark);background:var(--accent-soft);">Vigência: a partir de 1º de abril de 2026</span>
   </section>
 
   <!-- ============================================================
@@ -1095,7 +1444,7 @@
     <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2 A6 6 0 1 1 2.5 5.5 L4 5.5 A4.5 4.5 0 1 0 8 3.5 L8 6 L4.5 3 L8 0 Z"/></svg>
   </button>
 </div>
-// ===========================================================
+
 <script>
 (function() {
   'use strict';
